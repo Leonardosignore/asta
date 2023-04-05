@@ -88,7 +88,7 @@ public class Repository {
     }
 
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/Scuola";
+        String url = "jdbc:mysql://localhost:3306/asta";
         String username = "root";
         String password = "leopoldodinarnia";
 
