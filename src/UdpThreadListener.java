@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.NetworkInterface;
 
-public class UdpThreadListener extends Thread{
+public class UdpThreadListener extends Thread {
 
     private String ipClient;
     private int port;
@@ -15,7 +15,7 @@ public class UdpThreadListener extends Thread{
         this.port = port;
     }
 
-    public void receiveUdpMessage (){
+    public void receiveUdpMessage() {
 
         byte[] receiveData = new byte[1024];
 
@@ -24,15 +24,17 @@ public class UdpThreadListener extends Thread{
             InetAddress address = InetAddress.getByName(ipClient);
             InetSocketAddress group = new InetSocketAddress(address, port);
             NetworkInterface netIf = NetworkInterface.getByName("bge0");
-            
+
             multicastSocket.joinGroup(group, netIf);
 
-            while (true){
-                System.out.println("[5] Listener udp started");
+            System.out.println("[5] Listener udp started");
+            
+            while (true) {
+
                 DatagramPacket dataPacket = new DatagramPacket(
                         receiveData,
                         receiveData.length);
-                
+
                 multicastSocket.receive(dataPacket);
 
                 byte[] byteOffer = dataPacket.getData();
@@ -45,7 +47,7 @@ public class UdpThreadListener extends Thread{
 
     }
 
-    public void run () {
+    public void run() {
         receiveUdpMessage();
     }
 

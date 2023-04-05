@@ -12,12 +12,17 @@ public class TcpThread extends Thread {
     private Socket socket;
     private Repository repository;
 
+    String ipClient = "224.0.0.1";
+    String ipServer = "224.0.1.1";
+    int portClient = 5050;
+    int portServer = 5000;
+
     public TcpThread(Socket socket, Repository repository) {
         this.socket = socket;
         this.repository = repository;
     }
 
-    public void run() {
+    public void run() { 
 
         System.out.println("Thread started!\n");
         try {
@@ -61,8 +66,12 @@ public class TcpThread extends Thread {
                 System.out.println("[4] send ip " + ip);
             }
 
-            UdpThread udpThread = new UdpThread(ip);
-            udpThread.start();
+            UdpServerThread udpServerListener = new UdpServerThread(
+            ipClient,
+            portServer,
+            ipServer, 
+            portClient);
+        udpServerListener.start();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -13,12 +13,14 @@ import java.util.Scanner;
 public class ClientDebug {
     public static void main(String[] args) {
         String host = "localhost";
-        int port = 7090;
+        int portSocketTcp = 7090;
         int portClient = 5050;
         int portServer = 5000;
+        String ipClient = "224.0.0.1";
+        String ipServer = "224.0.1.1";
         Socket socket;
         try {
-            socket = new Socket(host, port);
+            socket = new Socket(host, portSocketTcp);
 
             System.out.println("Client connected to server");
 
@@ -63,7 +65,7 @@ public class ClientDebug {
             System.out.println("[3] send item " + item);
 
             // [4] receive ip multicast
-            String ipClient = din.readUTF();
+            String ip = din.readUTF();
             System.out.println("[4] received ip " + ipClient);
 
             // [5] start UdpThreadListener
@@ -72,7 +74,6 @@ public class ClientDebug {
 
             //[6] send offer
             Scanner scanner = new Scanner(System.in);
-            String ipServer = "224.0.1.1"; //capiamo:
             while (true){
                 System.out.println("write new offer..");
                 String offer = scanner.nextLine();
