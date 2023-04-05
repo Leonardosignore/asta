@@ -27,12 +27,6 @@ public class TcpThread extends Thread {
             DataInputStream din = new DataInputStream(in);
             DataOutputStream dout = new DataOutputStream(out);
 
-            // hello client
-            // System.out.println("Aspetto il messaggio");
-            // String response = din.readUTF();
-            // System.out.println("Client request " + response);
-            // dout.writeUTF("Hello Client");
-
             //[0] send category
             ObjectOutputStream objOut = new ObjectOutputStream(dout);
             ArrayList<String> categories = repository.selectCategories();
@@ -61,7 +55,8 @@ public class TcpThread extends Thread {
             // [4] send ip multicast
             String ip = null;
             if (item != null) {
-                ip = repository.getIp(item);
+                ip = "224.0.0.1";
+                //ip = repository.getIp(item);
                 dout.writeUTF(ip);
                 System.out.println("[4] send ip " + ip);
             }

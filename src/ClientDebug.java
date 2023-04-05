@@ -8,11 +8,14 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ClientDebug {
     public static void main(String[] args) {
         String host = "localhost";
         int port = 7090;
+        int portClient = 5050;
+        int portServer = 5000;
         Socket socket;
         try {
             socket = new Socket(host, port);
@@ -25,13 +28,9 @@ public class ClientDebug {
             DataInputStream din = new DataInputStream(in);
             DataOutputStream dout = new DataOutputStream(out);
 
-            // hello server
-            // System.out.println("Invio messaggio..");
-            // dout.writeUTF("Hello Server");
-            // String response = din.readUTF();
-            // System.out.println("Server response " + response);
-
             ObjectInputStream objIn = new ObjectInputStream(din);
+
+
             // [0] receive categories
             ArrayList<String> categories = null;
             try {
@@ -64,8 +63,23 @@ public class ClientDebug {
             System.out.println("[3] send item " + item);
 
             // [4] receive ip multicast
-            String ip = din.readUTF();
-            System.out.println("[4] received ip " + ip);
+            String ipClient = din.readUTF();
+            System.out.println("[4] received ip " + ipClient);
+
+            // [5] start UdpThreadListener
+            UdpThreadListener udpThreadListener = new UdpThreadListener(ipClient,portClient);
+            udpThreadListener.start();
+
+            //[6] send offer
+            Scanner scanner = new Scanner(System.in);
+            String ipServer = "224.0.1.1"; //capiamo:
+            while (true){
+                System.out.println("write new offer..");
+                String offer = scanner.nextLine();
+
+                UdpThreadActive udpActive = new UdpThreadActive(ipServer, portServer, offer);
+                udpActive.start();
+            }
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
