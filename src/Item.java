@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Item {
+public class Item implements Serializable{
     private int idItem;
     private String name;
     private String category;
@@ -37,7 +38,5 @@ public class Item {
     public void setCategory(String category) {
         this.category = category;
     }
-
-    
 
 }

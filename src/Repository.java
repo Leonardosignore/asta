@@ -87,12 +87,20 @@ public class Repository {
         return response;
     }
 
+    // !!!
+    public String getIp (Item item){
+        return "ip";
+    }
+
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/asta";
         String username = "root";
         String password = "leopoldodinarnia";
 
-        Repository repo = new Repository(url, username, password);
+        Repository repo = new Repository(
+            url, 
+            username, 
+            password);
 
         System.out.println("ITEMS");
         String cat = "giocattoli";
