@@ -66,10 +66,8 @@ public class TcpServerThread extends Thread {
                 System.out.println("[4] send ip " + ip);
             }
             UdpServerThread udpServerListener = new UdpServerThread(
-                    ipClient,
                     portServer,
-                    ipServer,
-                    portClient);
+                    ipServer);
             udpServerListener.start();
 
         } catch (IOException e) {

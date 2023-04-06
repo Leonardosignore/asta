@@ -11,10 +11,9 @@ public class UdpServerThread extends Thread {
     private int portServer;
 
     public UdpServerThread(
-            String ipClient,
             int portServer,
-            String ipServer,
-            int portClient) {
+            String ipServer
+            ) {
         this.portServer = portServer;
         this.ipServer = ipServer;
     }
