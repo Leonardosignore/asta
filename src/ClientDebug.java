@@ -68,19 +68,16 @@ public class ClientDebug {
             String ip = din.readUTF();
             System.out.println("[4] received ip " + ipClient);
 
-            // [5] start UdpThreadListener
-            UdpThreadListener udpThreadListener = new UdpThreadListener(ipClient,portClient);
-            udpThreadListener.start();
 
-            //[6] send offer
-            Scanner scanner = new Scanner(System.in);
-            while (true){
-                System.out.println("write new offer..");
-                String offer = scanner.nextLine();
+            /*
+             * UDP SECTION !!!
+             */
 
-                UdpThreadActive udpActive = new UdpThreadActive(ipServer, portServer, offer);
-                udpActive.start();
-            }
+            // [5] start udpThreadClient
+            UdpThreadClient udpThreadClient = new UdpThreadClient(
+                portServer, 
+                ipServer);
+            udpThreadClient.start();
 
         } catch (UnknownHostException e) {
             e.printStackTrace();

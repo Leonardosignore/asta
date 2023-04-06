@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.NetworkInterface;
+import java.net.Socket;
 
 public class UdpServerThread extends Thread {
 
@@ -53,9 +54,10 @@ public class UdpServerThread extends Thread {
     public void receiveUdpMessage() {
 
         byte[] receiveData = new byte[1024];
+        MulticastSocket multicastSocket = null;
 
         try {
-            MulticastSocket multicastSocket = new MulticastSocket(portServer);
+            multicastSocket = new MulticastSocket(portServer);
             InetAddress address = InetAddress.getByName(ipServer);
             InetSocketAddress group = new InetSocketAddress(address, portServer);
             NetworkInterface netIf = NetworkInterface.getByName("bge0");
@@ -71,26 +73,13 @@ public class UdpServerThread extends Thread {
 
                 multicastSocket.receive(dataPacket);
 
-                byte[] byteOffer = dataPacket.getData();
                 String offer = new String (dataPacket.getData());
 
-                System.out.println("received data " + offer + " from server");
+                System.out.println("received new offer " + offer + " from Client " + dataPacket.getPort());
 
-                Integer offerNumber = 0;
-
-                try{
-                  offerNumber = Integer.parseInt(offer);  
-                } catch (NumberFormatException e){
-                    e.printStackTrace();
-                }
-
-                if(offerWin<offerNumber){
-                    this.offerWin = offerNumber;
-                    System.out.println("New winner offer: " + offerNumber);
-                }
-
-                sendOffer(offer);
+                //sendOffer(offer);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -45,6 +45,5 @@ public class UdpThreadActive extends Thread {
         if (socket != null) {
             socket.close();
         }
-
     }
 }
