@@ -38,6 +38,7 @@ public class UdpThreadActive extends Thread {
                 portServer);
             socket.send(packet);
             System.out.println("Send offer to server " + offer);
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

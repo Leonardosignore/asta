@@ -22,7 +22,7 @@ public class TcpThread extends Thread {
         this.repository = repository;
     }
 
-    public void run() { 
+    public void run() {
 
         System.out.println("Thread started!\n");
         try {
@@ -32,7 +32,7 @@ public class TcpThread extends Thread {
             DataInputStream din = new DataInputStream(in);
             DataOutputStream dout = new DataOutputStream(out);
 
-            //[0] send category
+            // [0] send category
             ObjectOutputStream objOut = new ObjectOutputStream(dout);
             ArrayList<String> categories = repository.selectCategories();
             objOut.writeObject(categories);
@@ -61,17 +61,16 @@ public class TcpThread extends Thread {
             String ip = null;
             if (item != null) {
                 ip = "224.0.0.1";
-                //ip = repository.getIp(item);
+                // ip = repository.getIp(item);
                 dout.writeUTF(ip);
                 System.out.println("[4] send ip " + ip);
             }
-
             UdpServerThread udpServerListener = new UdpServerThread(
-            ipClient,
-            portServer,
-            ipServer, 
-            portClient);
-        udpServerListener.start();
+                    ipClient,
+                    portServer,
+                    ipServer,
+                    portClient);
+            udpServerListener.start();
 
         } catch (IOException e) {
             e.printStackTrace();

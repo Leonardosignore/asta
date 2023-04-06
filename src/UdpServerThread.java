@@ -14,6 +14,8 @@ public class UdpServerThread extends Thread {
     private int portServer;
     private int portClient;
 
+    private Integer offerWin;
+
     public UdpServerThread(
             String ipClient,
             int portServer,
@@ -23,6 +25,7 @@ public class UdpServerThread extends Thread {
         this.portServer = portServer;
         this.ipServer = ipServer;
         this.portClient = portClient;
+        this.offerWin = 0;
     }
 
     public void sendOffer(String offer) {
@@ -69,10 +72,24 @@ public class UdpServerThread extends Thread {
                 multicastSocket.receive(dataPacket);
 
                 byte[] byteOffer = dataPacket.getData();
+                String offer = new String (dataPacket.getData());
 
-                System.out.println("received data " + byteOffer.toString()+ " from server");
+                System.out.println("received data " + offer + " from server");
 
-                sendOffer(byteOffer.toString());
+                Integer offerNumber = 0;
+
+                try{
+                  offerNumber = Integer.parseInt(offer);  
+                } catch (NumberFormatException e){
+                    e.printStackTrace();
+                }
+
+                if(offerWin<offerNumber){
+                    this.offerWin = offerNumber;
+                    System.out.println("New winner offer: " + offerNumber);
+                }
+
+                sendOffer(offer);
             }
         } catch (IOException e) {
             e.printStackTrace();
