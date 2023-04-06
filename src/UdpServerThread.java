@@ -42,6 +42,12 @@ public class UdpServerThread extends Thread {
 
                 String offer = new String (dataPacket.getData());
 
+                System.out.println("'" + offer + "'");
+
+                Integer offerInteger = Integer.parseInt(offer);
+
+                System.out.println("'"+offerInteger+"'");
+
                 System.out.println("received new offer " + offer + " from Client " + dataPacket.getPort());
             }
 

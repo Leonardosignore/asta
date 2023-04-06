@@ -49,6 +49,11 @@ public class UdpThreadClient extends Thread {
         while (!close){
             System.out.println("Write new offer..");
             String offer = s.nextLine();
+
+            Integer offerInteger = Integer.parseInt(offer);
+
+            System.out.println("Numero offerta: " + offer);
+
             sendOffer(offer);
         }
         s.close();
