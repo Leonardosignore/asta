@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class TcpThread extends Thread {
+public class TcpServerThread extends Thread {
     private Socket socket;
     private Repository repository;
 
@@ -17,7 +17,7 @@ public class TcpThread extends Thread {
     int portClient = 5050;
     int portServer = 5000;
 
-    public TcpThread(Socket socket, Repository repository) {
+    public TcpServerThread(Socket socket, Repository repository) {
         this.socket = socket;
         this.repository = repository;
     }

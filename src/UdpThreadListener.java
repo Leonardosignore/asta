@@ -37,11 +37,11 @@ public class UdpThreadListener extends Thread {
 
                 multicastSocket.receive(dataPacket);
 
-                byte[] byteOffer = dataPacket.getData();
                 String offer = new String(dataPacket.getData());
 
                 System.out.println("new offer received " + offer);
             }
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

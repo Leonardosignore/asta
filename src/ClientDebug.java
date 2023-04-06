@@ -1,3 +1,4 @@
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -8,15 +9,12 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ClientDebug {
     public static void main(String[] args) {
         String host = "localhost";
         int portSocketTcp = 7090;
-        int portClient = 5050;
         int portServer = 5000;
-        String ipClient = "224.0.0.1";
         String ipServer = "224.0.1.1";
         Socket socket;
         try {
@@ -66,8 +64,7 @@ public class ClientDebug {
 
             // [4] receive ip multicast
             String ip = din.readUTF();
-            System.out.println("[4] received ip " + ipClient);
-
+            System.out.println("[4] received ip " + ip);
 
             /*
              * UDP SECTION !!!

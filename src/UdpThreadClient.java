@@ -51,5 +51,6 @@ public class UdpThreadClient extends Thread {
             String offer = s.nextLine();
             sendOffer(offer);
         }
+        s.close();
     }
 }

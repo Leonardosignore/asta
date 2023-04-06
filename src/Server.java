@@ -26,7 +26,7 @@ public class Server {
 
                 System.out.println("Client accepted!\n");
 
-                TcpThread tcp = new TcpThread(socket,repository);
+                TcpServerThread tcp = new TcpServerThread(socket,repository);
                 tcp.start();
             }
         } catch (IOException e) {
