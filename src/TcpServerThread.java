@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class TcpServerThread extends Thread {
     private Socket socket;
     private Repository repository;
+    private static ArrayList<String> ipAddressesGroup = new ArrayList<String>();
 
     String ipClient = "224.0.0.1";
     String ipServer = "224.0.1.1";
@@ -57,18 +58,19 @@ public class TcpServerThread extends Thread {
                 e.printStackTrace();
             }
 
-            // [4] send ip multicast
-            String ip = null;
-            if (item != null) {
-                ip = "224.0.0.1";
-                // ip = repository.getIp(item);
-                dout.writeUTF(ip);
-                System.out.println("[4] send ip " + ip);
+            // [4] receive ip multicast
+            String ipGroup = din.readUTF();
+            int portGroup = din.readInt();
+
+            if (!ipAddressesGroup.contains(ipGroup)) {
+                UdpServerThread udpServerListener = new UdpServerThread(
+                        portGroup,
+                        ipGroup);
+                udpServerListener.start();
+                ipAddressesGroup.add(ipGroup);
+            } else {
+                System.out.println("Udp Server just started!");
             }
-            UdpServerThread udpServerListener = new UdpServerThread(
-                    portServer,
-                    ipServer);
-            udpServerListener.start();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -33,7 +33,7 @@ public class UdpServerThread extends Thread {
 
             multicastSocket.joinGroup(group, netIf);
 
-            System.out.println("[5] Listener udp started");
+            System.out.println("[5] Listener udp started on ip " + ipServer + ", on port " + portServer);
 
             while (true) {
                 DatagramPacket dataPacket = new DatagramPacket(

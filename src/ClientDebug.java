@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ClientDebug {
     public static void main(String[] args) {
@@ -56,15 +57,23 @@ public class ClientDebug {
             }
 
             // [3] send item
-
             ObjectOutputStream objOut = new ObjectOutputStream(dout);
             Item item = items.get(0);
             objOut.writeObject(item);
             System.out.println("[3] send item " + item);
 
             // [4] receive ip multicast
-            String ip = din.readUTF();
-            System.out.println("[4] received ip " + ip);
+            Scanner scanIP = new Scanner(System.in);
+            Scanner scanPort = new Scanner(System.in);
+
+            System.out.println("Inserisci l'ip del gruppo");
+            String ipGroup = scanIP.nextLine();
+
+            System.out.println("Inserisci la porta del gruppo");
+            int portGroup = scanPort.nextInt();
+
+            dout.writeUTF(ipGroup);
+            dout.writeInt(portGroup);
 
             /*
              * UDP SECTION !!!
@@ -72,8 +81,8 @@ public class ClientDebug {
 
             // [5] start udpThreadClient
             UdpThreadClient udpThreadClient = new UdpThreadClient(
-                portServer, 
-                ipServer);
+                portGroup, 
+                ipGroup);
             udpThreadClient.start();
 
         } catch (UnknownHostException e) {
