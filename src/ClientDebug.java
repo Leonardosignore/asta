@@ -69,11 +69,8 @@ public class ClientDebug {
             System.out.println("Inserisci l'ip del gruppo");
             String ipGroup = scanIP.nextLine();
 
-            System.out.println("Inserisci la porta del gruppo");
-            int portGroup = scanPort.nextInt();
-
             dout.writeUTF(ipGroup);
-            dout.writeInt(portGroup);
+            dout.writeInt(5000);
 
             /*
              * UDP SECTION !!!
@@ -81,7 +78,7 @@ public class ClientDebug {
 
             // [5] start udpThreadClient
             UdpThreadClient udpThreadClient = new UdpThreadClient(
-                portGroup, 
+                5000, 
                 ipGroup);
             udpThreadClient.start();
 

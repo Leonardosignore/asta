@@ -60,11 +60,10 @@ public class TcpServerThread extends Thread {
 
             // [4] receive ip multicast
             String ipGroup = din.readUTF();
-            int portGroup = din.readInt();
 
             if (!ipAddressesGroup.contains(ipGroup)) {
                 UdpServerThread udpServerListener = new UdpServerThread(
-                        portGroup,
+                        5000,
                         ipGroup);
                 udpServerListener.start();
                 ipAddressesGroup.add(ipGroup);

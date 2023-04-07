@@ -46,7 +46,7 @@ public class UdpServerThread extends Thread {
 
                 int offerInt = Integer.parseInt(offer);
 
-                System.out.println("received new offer " + offerInt + " from Client " + dataPacket.getPort());
+                System.out.println("received new offer " + offerInt + " from group " + ipServer);
 
                 if (offerMAX<offerInt) offerMAX = offerInt;
 
