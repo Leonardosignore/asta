@@ -6,9 +6,10 @@ import java.net.MulticastSocket;
 import java.net.NetworkInterface;
 
 public class UdpServerThread extends Thread {
+    
     private String ipServer;
-
     private int portServer;
+    private int offerMAX; 
 
     public UdpServerThread(
             int portServer,
@@ -16,6 +17,7 @@ public class UdpServerThread extends Thread {
             ) {
         this.portServer = portServer;
         this.ipServer = ipServer;
+        this.offerMAX = 0;
     }
 
     public void receiveUdpMessage() {
@@ -40,15 +42,15 @@ public class UdpServerThread extends Thread {
 
                 multicastSocket.receive(dataPacket);
 
-                String offer = new String (dataPacket.getData());
+                String offer = new String (dataPacket.getData()).substring(0,dataPacket.getLength());
 
-                System.out.println("'" + offer + "'");
+                int offerInt = Integer.parseInt(offer);
 
-                Integer offerInteger = Integer.parseInt(offer);
+                System.out.println("received new offer " + offerInt + " from Client " + dataPacket.getPort());
 
-                System.out.println("'"+offerInteger+"'");
+                if (offerMAX<offerInt) offerMAX = offerInt;
 
-                System.out.println("received new offer " + offer + " from Client " + dataPacket.getPort());
+                System.out.println("Offer max : " + offerMAX);
             }
 
         } catch (IOException e) {

@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.NetworkInterface;
+import java.util.ArrayList;
 
 public class UdpThreadListener extends Thread {
 
@@ -18,6 +19,7 @@ public class UdpThreadListener extends Thread {
     public void receiveUdpMessage() {
 
         byte[] receiveData = new byte[1024];
+        int offerMAX = 0;
 
         try {
             MulticastSocket multicastSocket = new MulticastSocket(port);
@@ -28,20 +30,23 @@ public class UdpThreadListener extends Thread {
             multicastSocket.joinGroup(group, netIf);
 
             System.out.println("[5] Listener udp started");
-            
-            while (true) {
 
+            while (true) {
                 DatagramPacket dataPacket = new DatagramPacket(
                         receiveData,
                         receiveData.length);
 
                 multicastSocket.receive(dataPacket);
 
-                String offer = new String(dataPacket.getData());
+                String offer = new String(dataPacket.getData()).substring(0,dataPacket.getLength());
 
-                System.out.println("new offer received " + offer);
+                int offerInteger = Integer.parseInt(offer);
+
+                System.out.println("new offer received " + "'" + offerInteger + "'");
+
+                offerMAX = offerInteger;
             }
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }

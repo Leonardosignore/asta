@@ -29,6 +29,7 @@ public class UdpThreadClient extends Thread {
                     portServer);
             socket.send(packet);
             System.out.println("Send offer to server " + offer + " in group " + ipServer + " " + portServer);
+            offer = "";
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,12 +48,16 @@ public class UdpThreadClient extends Thread {
         boolean close = false;
         Scanner s = new Scanner (System.in);
         while (!close){
+            String offer = "";
+
             System.out.println("Write new offer..");
-            String offer = s.nextLine();
+            int offerInt = s.nextInt();
 
-            Integer offerInteger = Integer.parseInt(offer);
+            offer += offerInt;
 
-            System.out.println("Numero offerta: " + offer);
+            int offerInteger = Integer.parseInt(offer);
+
+            System.out.println("Numero offerta: " + offerInteger);
 
             sendOffer(offer);
         }
