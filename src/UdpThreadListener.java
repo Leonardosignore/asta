@@ -4,14 +4,15 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.NetworkInterface;
-import java.util.ArrayList;
 
 public class UdpThreadListener extends Thread {
 
     private String ipClient;
     private int port;
 
-    public UdpThreadListener(String ipClient, int port) {
+    public UdpThreadListener(
+        String ipClient, 
+        int port) {
         this.ipClient = ipClient;
         this.port = port;
     }
@@ -19,7 +20,6 @@ public class UdpThreadListener extends Thread {
     public void receiveUdpMessage() {
 
         byte[] receiveData = new byte[1024];
-        int offerMAX = 0;
 
         try {
             MulticastSocket multicastSocket = new MulticastSocket(port);
@@ -31,7 +31,9 @@ public class UdpThreadListener extends Thread {
 
             System.out.println("[5] Listener udp started");
 
-            while (true) {
+            int offerInteger = 0;
+
+            while (offerInteger!=-1) {
                 DatagramPacket dataPacket = new DatagramPacket(
                         receiveData,
                         receiveData.length);
@@ -40,11 +42,9 @@ public class UdpThreadListener extends Thread {
 
                 String offer = new String(dataPacket.getData()).substring(0,dataPacket.getLength());
 
-                int offerInteger = Integer.parseInt(offer);
+                offerInteger = Integer.parseInt(offer);
 
                 System.out.println("new offer received " + "'" + offerInteger + "'");
-
-                offerMAX = offerInteger;
             }
 
         } catch (IOException e) {

@@ -45,9 +45,9 @@ public class UdpThreadClient extends Thread {
         UdpThreadListener udpThreadListener = new UdpThreadListener(ipServer, portServer);
         udpThreadListener.start();
 
-        boolean close = false;
         Scanner s = new Scanner(System.in);
-        while (!close){
+
+        while (udpThreadListener.isAlive()) {
             String offer = "";
 
             System.out.println("Write new offer..");
@@ -61,6 +61,5 @@ public class UdpThreadClient extends Thread {
 
             sendOffer(offer);
         }
-        s.close();
     }
 }
