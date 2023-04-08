@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
@@ -36,9 +35,10 @@ public class UdpServerThread extends Thread {
 
             System.out.println("[5] Listener udp started on ip " + ipServer + ", on port " + portServer);
 
-            Timer timer = new Timer();
+            Timer timer = new Timer(ipServer, portServer);
             timer.start();
 
+            //receive offers
             while (timer.isAlive()) {
                 DatagramPacket dataPacket = new DatagramPacket(
                         receiveData,
@@ -47,11 +47,9 @@ public class UdpServerThread extends Thread {
                 multicastSocket.receive(dataPacket);
 
                 String offer = new String (dataPacket.getData()).substring(0,dataPacket.getLength());
-
                 int offerInt = Integer.parseInt(offer);
 
                 System.out.println("received new offer " + offerInt + " from group " + ipServer);
-
                 if (offerMAX<offerInt) offerMAX = offerInt;
 
                 System.out.println("Offer max : " + offerMAX);

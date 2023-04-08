@@ -47,6 +47,8 @@ public class UdpThreadListener extends Thread {
                 System.out.println("new offer received " + "'" + offerInteger + "'");
             }
 
+            System.out.println("Listener finished");
+
         } catch (IOException e) {
             e.printStackTrace();
         }

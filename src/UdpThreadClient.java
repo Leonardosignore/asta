@@ -55,10 +55,6 @@ public class UdpThreadClient extends Thread {
 
             offer += offerInt;
 
-            int offerInteger = Integer.parseInt(offer);
-
-            System.out.println("Numero offerta: " + offerInteger);
-
             sendOffer(offer);
         }
     }

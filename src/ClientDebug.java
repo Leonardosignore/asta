@@ -15,8 +15,6 @@ public class ClientDebug {
     public static void main(String[] args) {
         String host = "localhost";
         int portSocketTcp = 7090;
-        int portServer = 5000;
-        String ipServer = "224.0.1.1";
         Socket socket;
         try {
             socket = new Socket(host, portSocketTcp);
@@ -64,13 +62,11 @@ public class ClientDebug {
 
             // [4] receive ip multicast
             Scanner scanIP = new Scanner(System.in);
-            Scanner scanPort = new Scanner(System.in);
 
             System.out.println("Inserisci l'ip del gruppo");
             String ipGroup = scanIP.nextLine();
 
             dout.writeUTF(ipGroup);
-            dout.writeInt(5000);
 
             /*
              * UDP SECTION !!!

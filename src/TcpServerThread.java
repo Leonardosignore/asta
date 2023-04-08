@@ -13,10 +13,10 @@ public class TcpServerThread extends Thread {
     private Repository repository;
     private static ArrayList<String> ipAddressesGroup = new ArrayList<String>();
 
-    String ipClient = "224.0.0.1";
-    String ipServer = "224.0.1.1";
-    int portClient = 5050;
-    int portServer = 5000;
+    // String ipClient = "224.0.0.1";
+    // String ipServer = "224.0.1.1";
+    // int portClient = 5050;
+    // int portServer = 5000;
 
     public TcpServerThread(Socket socket, Repository repository) {
         this.socket = socket;
