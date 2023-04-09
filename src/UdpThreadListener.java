@@ -48,7 +48,12 @@ public class UdpThreadListener extends Thread {
                 offerInteger = Integer.parseInt(offer);
                 offers.add(offerInteger);
 
-                System.out.println("new offer received " + "'" + offerInteger + "'");
+                if (offerInteger != -1){
+                    System.out.println("new offer received " + "'" + offerInteger + "'");
+                } else {
+                    System.out.println("time is over");
+                }
+                
             }
 
             int offerWinner = 0;
