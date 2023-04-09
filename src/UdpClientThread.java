@@ -4,12 +4,12 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Scanner;
 
-public class UdpThreadClient extends Thread {
+public class UdpClientThread extends Thread {
 
     private int portServer;
     private String ipServer;
 
-    public UdpThreadClient(
+    public UdpClientThread(
             int portServer,
             String ipServer) {
         this.portServer = portServer;

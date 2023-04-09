@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.NetworkInterface;
+import java.util.ArrayList;
 
 public class UdpThreadListener extends Thread {
 
@@ -33,6 +34,8 @@ public class UdpThreadListener extends Thread {
 
             int offerInteger = 0;
 
+            ArrayList<Integer> offers = new ArrayList<Integer>();
+
             while (offerInteger!=-1) {
                 DatagramPacket dataPacket = new DatagramPacket(
                         receiveData,
@@ -43,11 +46,20 @@ public class UdpThreadListener extends Thread {
                 String offer = new String(dataPacket.getData()).substring(0,dataPacket.getLength());
 
                 offerInteger = Integer.parseInt(offer);
+                offers.add(offerInteger);
 
                 System.out.println("new offer received " + "'" + offerInteger + "'");
             }
 
-            System.out.println("Listener finished");
+            int offerWinner = 0;
+
+            for (Integer integer : offers) {
+                if (offerWinner<integer){
+                    offerWinner = integer;
+                }
+            }
+
+            System.out.println("Offerta vincitrice: " + offerWinner);
 
         } catch (IOException e) {
             e.printStackTrace();

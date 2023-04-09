@@ -13,11 +13,6 @@ public class TcpServerThread extends Thread {
     private Repository repository;
     private static ArrayList<String> ipAddressesGroup = new ArrayList<String>();
 
-    // String ipClient = "224.0.0.1";
-    // String ipServer = "224.0.1.1";
-    // int portClient = 5050;
-    // int portServer = 5000;
-
     public TcpServerThread(Socket socket, Repository repository) {
         this.socket = socket;
         this.repository = repository;
@@ -58,14 +53,16 @@ public class TcpServerThread extends Thread {
                 e.printStackTrace();
             }
 
-            // [4] receive ip multicast
-            String ipGroup = din.readUTF();
+            // credenziali accesso al gruppo multicast
+            String ipGroup = item.getIpGroup();
+            int portGroup = 5000;
 
             if (!ipAddressesGroup.contains(ipGroup)) {
-                UdpServerThread udpServerListener = new UdpServerThread(
-                        5000,
+                UdpServerThread udpServerThread = new UdpServerThread(
+                        portGroup,
                         ipGroup);
-                udpServerListener.start();
+                udpServerThread.start();
+
                 ipAddressesGroup.add(ipGroup);
             } else {
                 System.out.println("Udp Server just started!");

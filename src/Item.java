@@ -1,26 +1,29 @@
 import java.io.Serializable;
 
 public class Item implements Serializable{
-    private int idItem;
+    private int id;
     private String name;
     private String category;
+    private String ipGroup;
 
     public Item (
-        int idItem,
+        int id,
         String name,
-        String category
+        String category,
+        String ipGroup
     ){
-        this.idItem = idItem;
+        this.id = id;
         this.name = name;
         this.category = category;
+        this.ipGroup = ipGroup;
     }
 
-    public int getIdItem() {
-        return idItem;
+    public int getId() {
+        return id;
     }
 
-    public void setIdItem(int idItem) {
-        this.idItem = idItem;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -37,6 +40,14 @@ public class Item implements Serializable{
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getIpGroup() {
+        return ipGroup;
+    }
+
+    public void setIpGroup(String ipGroup) {
+        this.ipGroup = ipGroup;
     }
 
 }

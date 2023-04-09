@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ClientDebug {
+public class Client {
     public static void main(String[] args) {
         String host = "localhost";
         int portSocketTcp = 7090;
@@ -41,7 +41,9 @@ public class ClientDebug {
             }
 
             // [1] send category
-            String category = categories.get(0);
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Type category..");
+            String category = scanner.nextLine();
             dout.writeUTF(category);
             System.out.println("[1] send category " + category);
 
@@ -54,27 +56,21 @@ public class ClientDebug {
                 e.printStackTrace();
             }
 
-            // [3] send item
+            // [3] send item selected
             ObjectOutputStream objOut = new ObjectOutputStream(dout);
-            Item item = items.get(0);
+
+            Scanner scan = new Scanner (System.in);
+            System.out.println("Inserisci la posizione dell'item");
+            Item item = items.get(scanner.nextInt());
             objOut.writeObject(item);
             System.out.println("[3] send item " + item);
 
-            // [4] receive ip multicast
-            Scanner scanIP = new Scanner(System.in);
-
-            System.out.println("Inserisci l'ip del gruppo");
-            String ipGroup = scanIP.nextLine();
-
-            dout.writeUTF(ipGroup);
-
-            /*
-             * UDP SECTION !!!
-             */
+            String ipGroup = item.getIpGroup();
+            int portGroup = 5000;
 
             // [5] start udpThreadClient
-            UdpThreadClient udpThreadClient = new UdpThreadClient(
-                5000, 
+            UdpClientThread udpThreadClient = new UdpClientThread(
+                portGroup, 
                 ipGroup);
             udpThreadClient.start();
 

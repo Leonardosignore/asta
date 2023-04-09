@@ -35,11 +35,12 @@ public class UdpServerThread extends Thread {
 
             System.out.println("[5] Listener udp started on ip " + ipServer + ", on port " + portServer);
 
-            Timer timer = new Timer(ipServer, portServer);
+            TimerThread timer = new TimerThread(ipServer);
             timer.start();
 
+            int offerInt = 0;
             //receive offers
-            while (timer.isAlive()) {
+            while (offerInt!=-1) {
                 DatagramPacket dataPacket = new DatagramPacket(
                         receiveData,
                         receiveData.length);
@@ -47,7 +48,7 @@ public class UdpServerThread extends Thread {
                 multicastSocket.receive(dataPacket);
 
                 String offer = new String (dataPacket.getData()).substring(0,dataPacket.getLength());
-                int offerInt = Integer.parseInt(offer);
+                offerInt = Integer.parseInt(offer);
 
                 System.out.println("received new offer " + offerInt + " from group " + ipServer);
                 if (offerMAX<offerInt) offerMAX = offerInt;
@@ -56,18 +57,6 @@ public class UdpServerThread extends Thread {
             }
 
             System.out.println("FINISHED");
-
-            String msg = "-1";
-
-            byte[] msgByte = msg.getBytes();
-
-            DatagramPacket ds = new DatagramPacket(
-                msgByte,
-                msgByte.length,
-                address, 
-                portServer);
-            
-            multicastSocket.send(ds);
 
             System.out.println("L'offerta vincitrice è " + offerMAX);
 

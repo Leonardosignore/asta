@@ -28,7 +28,7 @@ public class Repository {
                 username, 
                 password);
 
-            String query = "select distinct category from asta.objects";
+            String query = "select distinct category from asta.items";
             java.sql.Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(query);
 
@@ -51,7 +51,7 @@ public class Repository {
                 url, 
                 username, 
                 password);
-                String query = "SELECT * FROM asta.objects where category = '"+ category +"';";
+                String query = "SELECT * FROM asta.items where category = '"+ category +"';";
             java.sql.Statement statement = connection.createStatement();
             ResultSet resultQuery = statement.executeQuery(query);
 
@@ -60,7 +60,8 @@ public class Repository {
                     new Item(
                         resultQuery.getInt(1), 
                         resultQuery.getString(2), 
-                        resultQuery.getString(3)));
+                        resultQuery.getString(3),
+                        resultQuery.getString(4)));
 			}
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,18 +79,13 @@ public class Repository {
                 username,
                 password);
             java.sql.Statement statement = connection.createStatement();
-            String query = "delete from asta.objects where idObject = '"+ idItem +"'";
+            String query = "delete from asta.items where idObject = '"+ idItem +"'";
             response = statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return response;
-    }
-
-    // !!!
-    public String getIp (Item item){
-        return "ip";
     }
 
     public static void main(String[] args) {
@@ -106,7 +102,7 @@ public class Repository {
         String cat = "giocattoli";
         ArrayList<Item> items = repo.selectItemsByCategory(cat);
         for (Item item : items) {
-            System.out.println("idItem: "+item.getIdItem()+"\nnome: " + item.getName()+"\ncategory: " + item.getCategory()+"\n");
+            System.out.println("idItem: "+item.getId()+"\nnome: " + item.getName()+"\ncategory: " + item.getCategory()+"\n");
         }
 
 
