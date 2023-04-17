@@ -6,6 +6,12 @@ public class Item implements Serializable{
     private String category;
     private String ipGroup;
 
+    public Item (String name, String category, String ipGroup){
+        this.name = name;
+        this.category = category;
+        this.ipGroup = ipGroup;
+    }
+
     public Item (
         int id,
         String name,

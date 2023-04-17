@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Client {
+public class buyer {
     public static void main(String[] args) {
         String host = "localhost";
         int portSocketTcp = 7090;
