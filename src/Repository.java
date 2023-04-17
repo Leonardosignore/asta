@@ -28,7 +28,7 @@ public class Repository {
                 username, 
                 password);
 
-            String query = "select distinct category from asta.items";
+            String query = "select name from asta.category";
             java.sql.Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(query);
 
@@ -51,7 +51,8 @@ public class Repository {
                 url, 
                 username, 
                 password);
-                String query = "SELECT * FROM asta.items where category = '"+ category +"';";
+
+            String query = "SELECT * FROM asta.items where idCategory = (select idCategory from asta.category where name = '"+ category +"');";
             java.sql.Statement statement = connection.createStatement();
             ResultSet resultQuery = statement.executeQuery(query);
 
@@ -79,7 +80,7 @@ public class Repository {
                 username,
                 password);
             java.sql.Statement statement = connection.createStatement();
-            String query = "delete from asta.items where idObject = '"+ idItem +"'";
+            String query = "delete from asta.items where idItem = '"+ idItem +"'";
             response = statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,14 +98,12 @@ public class Repository {
             url, 
             username, 
             password);
-
-        System.out.println("ITEMS");
-        String cat = "giocattoli";
-        ArrayList<Item> items = repo.selectItemsByCategory(cat);
+        
+        System.out.println("Items by categories");
+        ArrayList<Item> items = repo.selectItemsByCategory("giocattoli");
         for (Item item : items) {
-            System.out.println("idItem: "+item.getId()+"\nnome: " + item.getName()+"\ncategory: " + item.getCategory()+"\n");
+            System.out.println("items name: " + item.getName());
         }
-
 
         System.out.println("CATEGORIES");
 
