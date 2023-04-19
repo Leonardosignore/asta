@@ -57,10 +57,13 @@ public class TcpServerThread extends Thread {
             String ipGroup = item.getIpGroup();
             int portGroup = 5000;
 
+            //create UdpServerThread
             if (!ipAddressesGroup.contains(ipGroup)) {
                 UdpServerThread udpServerThread = new UdpServerThread(
                         portGroup,
-                        ipGroup);
+                        ipGroup,
+                        item,
+                        repository);
                 udpServerThread.start();
 
                 ipAddressesGroup.add(ipGroup);

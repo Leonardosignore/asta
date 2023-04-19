@@ -142,7 +142,7 @@ public class Repository {
         return false;
     }
 
-    public void addItem(Item item) {
+    public boolean addItem(Item item) {
         int response = 0;
         try {
             Connection connection = DriverManager.getConnection(
@@ -156,6 +156,12 @@ public class Repository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        if (response>0){
+            return true;
+        }
+        return false;
+        
     }
 
     public ArrayList<Item> selectItems() {

@@ -9,14 +9,20 @@ public class UdpServerThread extends Thread {
     
     private String ipServer;
     private int portServer;
+    private Item item;
+    private Repository repository;
     private int offerMAX; 
 
     public UdpServerThread(
             int portServer,
-            String ipServer
+            String ipServer, 
+            Item item,
+            Repository repository
             ) {
         this.portServer = portServer;
         this.ipServer = ipServer;
+        this.item = item;
+        this.repository = repository;
         this.offerMAX = 0;
     }
 
@@ -59,6 +65,9 @@ public class UdpServerThread extends Thread {
             System.out.println("FINISHED");
 
             System.out.println("L'offerta vincitrice è " + offerMAX);
+
+            //delete item on database
+            repository.deleteItemById(item.getId());
 
         } catch (IOException e) {
             e.printStackTrace();
