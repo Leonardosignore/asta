@@ -50,7 +50,12 @@ public class buyer {
             ArrayList<Item> items = null;
             try {
                 items = (ArrayList<Item>) objIn.readObject();
-                System.out.println("[2] items by category " + items.toString());
+                System.out.println("[2] items by category ");
+                int cont = 0;
+                for (Item item : items) {
+                    cont++;
+                    System.out.println("posizione " + cont + " name " + item.getName() + " idCategory " + item.getCategory() + " id " + item.getId() +  " ip group " + item.getIpGroup());
+                }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }

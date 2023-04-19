@@ -21,9 +21,10 @@ public class UdpThreadListener extends Thread {
     public void receiveUdpMessage() {
 
         byte[] receiveData = new byte[1024];
+        MulticastSocket multicastSocket = null;
 
         try {
-            MulticastSocket multicastSocket = new MulticastSocket(port);
+            multicastSocket = new MulticastSocket(port);
             InetAddress address = InetAddress.getByName(ipClient);
             InetSocketAddress group = new InetSocketAddress(address, port);
             NetworkInterface netIf = NetworkInterface.getByName("bge0");
@@ -69,6 +70,8 @@ public class UdpThreadListener extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        multicastSocket.close();
 
     }
 
