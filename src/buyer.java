@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class buyer {
+    @SuppressWarnings({"unchecked"})
     public static void main(String[] args) {
         String host = "localhost";
         int portSocketTcp = 7090;
@@ -41,8 +42,11 @@ public class buyer {
 
             // [1] send category
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Type category..");
-            String category = scanner.nextLine();
+            String category = null;
+            while (!categories.contains(category)){
+                System.out.println("Type category..");
+                category = scanner.nextLine();
+            }   
             dout.writeUTF(category);
             System.out.println("[1] send category " + category);
 
@@ -50,12 +54,13 @@ public class buyer {
             ArrayList<Item> items = null;
             try {
                 items = (ArrayList<Item>) objIn.readObject();
-                System.out.println("[2] items by category ");
+                System.out.println("[2] items by category \n");
                 int cont = 0;
                 for (Item item : items) {
+                    System.out.println("posizione: " + cont + " name: " + item.getName() + " idCategory: " + item.getCategory() + " id: " + item.getId() +  " ipGroup: " + item.getIpGroup());
                     cont++;
-                    System.out.println("posizione " + cont + " name " + item.getName() + " idCategory " + item.getCategory() + " id " + item.getId() +  " ip group " + item.getIpGroup());
                 }
+                System.out.println();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -64,8 +69,13 @@ public class buyer {
             ObjectOutputStream objOut = new ObjectOutputStream(dout);
 
             Scanner scan = new Scanner (System.in);
-            System.out.println("Inserisci la posizione dell'item");
-            Item item = items.get(scanner.nextInt());
+            Item item = null;
+            int index = items.size();
+            while (index>=items.size()){
+                System.out.println("Inserisci la posizione dell'item");
+                index = scan.nextInt();
+            }
+            item = items.get(index);
             objOut.writeObject(item);
             System.out.println("[3] send item " + item);
 

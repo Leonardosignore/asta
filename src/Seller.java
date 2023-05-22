@@ -13,6 +13,7 @@ public class Seller {
             password);
 
         int comando = -1;
+
         Scanner scanner = new Scanner(System.in);
 
         while (comando != 0){
@@ -28,6 +29,8 @@ public class Seller {
                 case 6: showCategory(repository); break;
             }
         }
+
+        scanner.close();
     }
 
     private static void showCategory(Repository repository) {
@@ -57,6 +60,8 @@ public class Seller {
             System.out.println("errore");
         }
 
+        scanner.close();
+
     }
 
     private static void addCategory(Repository repository) {
@@ -73,6 +78,7 @@ public class Seller {
         } else {
             System.out.println("errore");
         }
+        scanner.close();
     }
 
     private static void deleteItem(Repository repository) {
@@ -87,6 +93,7 @@ public class Seller {
         } else {
             System.out.println("errore");
         }
+        scanner.close();
     }
 
     private static void addItem(Repository repository) {
@@ -101,6 +108,6 @@ public class Seller {
         Item item = new Item(name, category, ipGroup);
 
         repository.addItem(item);
-
+        scanner.close();
     }
 }
