@@ -40,9 +40,15 @@ public class TcpServerThread extends Thread {
 
             // [2] send Item by category
             ArrayList<Item> items = repository.selectItemsByCategory(category);
-            objOut.writeObject(items);
-            System.out.println("[2] send Item by category " + items.toString());
-
+            if (items.size()>0){
+                objOut.writeObject(items);
+                System.out.println("[2] send Item by category " + items.toString());
+            } else {
+                System.out.println("La categoria selezionata non ha items");
+                items.add(new Item("default", "default", "default"));
+                objOut.writeObject(items);
+            }
+            
             // [3] receive Item
             Item item = null;
             try {

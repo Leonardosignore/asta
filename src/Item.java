@@ -56,4 +56,8 @@ public class Item implements Serializable{
         this.ipGroup = ipGroup;
     }
 
+    public String toString (){
+        return " item name: "+ this.name +" item idCategory: " + this.category + " item id: " + this.id + " item ipGroup: " + this.ipGroup ;
+    }
+
 }

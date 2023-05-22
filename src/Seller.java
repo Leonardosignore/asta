@@ -18,7 +18,12 @@ public class Seller {
 
         while (comando != 0){
             System.out.println("Quale operazione sul db vuoi fare ?");
-            System.out.println("0: stop\n1: add item\n2: remove item\n3: add category\n4: remove category\n5: vedi Items\n6: vedi Category");
+            System.out.println("0:stop");
+            System.out.println("1: add item");
+            System.out.println("2: delete item");
+            System.out.println("3: add category");
+            System.out.println("4: show items");
+            System.out.println("4: show categories");
             comando = scanner.nextInt();
             switch (comando){
                 case 1: addItem(repository);break;
